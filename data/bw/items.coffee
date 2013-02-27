@@ -225,6 +225,14 @@ extendItem 'Black Sludge', ->
       user.damage(amount)
 
 makeGemItem 'Bug Gem', 'Bug'
+
+extendItem 'Cell Battery', ->
+  @afterBeingHit = (battle, move, user, target, damage) ->
+    if move.type == 'Electric'
+      battle.message "#{user.name}'s Absorb Bulb made its Special Attack rise!"
+      target.boost(specialAttack: 1)
+      target.item = null
+
 makeTypeBoostItem 'Charcoal', 'Fire'
 makeTypeResistBerry 'Charti Berry', 'Rock'
 makeStatusCureBerry 'Cheri Berry', Status.PARALYZE
